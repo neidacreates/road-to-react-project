@@ -25,31 +25,45 @@ const list = [
   },
 ];
 
-function App() {
-  return (
+const App = () => (
     <div>
       <h1>My Hacker Stories</h1>
-      <label htmlFor="search">Search: </label>
-      <input id="search" type ="text"/>
+      
+      <Search />
 
       <hr />
-      
-      <ul>
-        {list.map(function(item){
-          return ( 
-            <li key ={item.objectID}>
-              <span>
-                <a href={item.url}>{item.title}</a>
-              </span>
-              <span>{item.author}</span>
-              <span>{item.num_components}</span>
-              <span>{item.points}</span>
-            </li>
-          );
-        })}
-      </ul>
+
+      <List />
     </div>
-    // <div className="App">
+  );
+
+const List = () => (
+    <ul>
+      {list.map(function (item) {
+        return (
+          <li key={item.objectID}>
+            <span>
+              <a href={item.url}>{item.title}</a>
+            </span>
+            <span>{item.author}</span>
+            <span>{item.num_components}</span>
+            <span>{item.points}</span>
+          </li>
+        );
+    })}
+    </ul>
+  );
+
+const Search = () => (
+    <div>
+      <label htmlFor="search">Search: </label>
+      <input id="search" type ="text"/>
+    </div>
+  );
+
+export default App;
+
+ // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />
     //     <p>
@@ -65,7 +79,3 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-  );
-}
-
-export default App;
