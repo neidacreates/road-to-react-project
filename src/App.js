@@ -9,6 +9,7 @@ import * as React from 'react';
 
 
 const App = () => {
+  // console.log("App renders");
 
   const stories = [
     {
@@ -29,11 +30,16 @@ const App = () => {
     },
   ];
 
+  // introducing callback handler
+  const handleSearch = (event) => {
+    console.log(event.target.value);
+  };
+
   return (
     <div>
       <h1>My Hacker Stories</h1>
       
-      <Search />
+      <Search  onSearch={handleSearch}/>
 
       <hr />
 
@@ -42,7 +48,9 @@ const App = () => {
   );
 };
 
-const List = (props) => (
+const List = (props) => {
+  // console.log("List renders");
+  return (
     <ul>
       {props.list.map(function (item) {
         return (
@@ -51,33 +59,52 @@ const List = (props) => (
     })}
     </ul>
   );
+  };
 
-const Search = () => {
+const Search = (props) => {
+  // console.log("Search renders")
+  // empty string is the initial state argument
+  const [searchTerm, setSearchTerm] = React.useState('');
 
   // function for the change event of the input field (event handler)
   const handleChange = (event) => {
-    console.log(event.target.value);
+    setSearchTerm(event.target.value);
+
+    props.onSearch(event);
+
   };
 
   return (
     <div>
       <label htmlFor="search">Search: </label>
       <input id="search" type ="text" onChange={handleChange}/>
+      <p>
+        Searching for <strong>{searchTerm}</strong>.
+      </p>
     </div>
   );
 
 };
 
-const Item = (props) => (
+const Item = (props) => {
+  // console.log("Item renders")
+  // so you don't have to write props.item every single time
+  // another way is 
+  // { item } = props
+  // or
+  // const Item = ({ item }) in the declaration
+  const item = props.item;
+  return (
   <li>
     <span>
-      <a href={props.item.url}>{props.item.title}</a>
+      <a href={item.url}>{item.title}</a>
     </span>
-    <span>{props.item.author}</span>
-    <span>{props.item.num_comments}</span>
-    <span>{props.item.points}</span>
+    <span>{item.author}</span>
+    <span>{item.num_comments}</span>
+    <span>{item.points}</span>
   </li>
-);
+  );
+};
 
 
 export default App;
