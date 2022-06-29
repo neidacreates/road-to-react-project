@@ -30,20 +30,32 @@ const App = () => {
     },
   ];
 
+  const [searchTerm, setSearchTerm] = React.useState('');
+
   // introducing callback handler
   const handleSearch = (event) => {
-    console.log(event.target.value);
+    setSearchTerm(event.target.value);
   };
+
+  // const searchedStories = stories.filter(function (story) {
+  //   return story.title.includes(searchTerm);
+  // });
+
+  // arrow function notation
+  const searchedStories = stories.filter((story) =>
+    story.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
       <h1>My Hacker Stories</h1>
+      <p> Searching for: {searchTerm}</p>
       
       <Search  onSearch={handleSearch}/>
 
       <hr />
 
-      <List list={stories} />
+      <List list={searchedStories} />
     </div>
   );
 };
@@ -63,24 +75,24 @@ const List = (props) => {
 
 const Search = (props) => {
   // console.log("Search renders")
-  // empty string is the initial state argument
-  const [searchTerm, setSearchTerm] = React.useState('');
+ 
+  
 
   // function for the change event of the input field (event handler)
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+  // const handleChange = (event) => {
+  //   setSearchTerm(event.target.value);
 
-    props.onSearch(event);
+  //   props.onSearch(event);
 
-  };
+  // };
 
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input id="search" type ="text" onChange={handleChange}/>
-      <p>
-        Searching for <strong>{searchTerm}</strong>.
-      </p>
+      <input id="search" type ="text" onChange={props.onSearch}/>
+      {/* <p>
+        Searching for <strong>{props.searchTerm}</strong>.
+      </p> */}
     </div>
   );
 
