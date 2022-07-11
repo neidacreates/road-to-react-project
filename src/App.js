@@ -60,58 +60,34 @@ const App = () => {
   );
 };
 
-const List = (props) => {
+const List = ({ list }) => (
   // console.log("List renders");
-  return (
     <ul>
-      {props.list.map(function (item) {
-        return (
+      {list.map((item) => (
           <Item key={item.objectID} item={item} />
-        );
-    })}
+      ))}
     </ul>
   );
-  };
 
-const Search = (props) => {
-  // console.log("Search renders")
- 
-  
-
-  // function for the change event of the input field (event handler)
-  // const handleChange = (event) => {
-  //   setSearchTerm(event.target.value);
-
-  //   props.onSearch(event);
-
-  // };
-
-  return (
+const Search = ({ search, onSearch }) => (
     <div>
       <label htmlFor="search">Search: </label>
       <input 
       id="search" 
       type ="text" 
-      value={props.search}
-      onChange={props.onSearch}
+      value={search}
+      onChange={onSearch}
       />
-      {/* <p>
-        Searching for <strong>{props.searchTerm}</strong>.
-      </p> */}
     </div>
   );
 
-};
-
-const Item = (props) => {
+const Item = ({ item }) => (
   // console.log("Item renders")
   // so you don't have to write props.item every single time
-  // another way is 
+  // another way is destructuring:
   // { item } = props
   // or
   // const Item = ({ item }) in the declaration
-  const item = props.item;
-  return (
   <li>
     <span>
       <a href={item.url}>{item.title}</a>
@@ -121,7 +97,6 @@ const Item = (props) => {
     <span>{item.points}</span>
   </li>
   );
-};
 
 
 export default App;
