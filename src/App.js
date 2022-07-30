@@ -20,8 +20,6 @@ const useSemiPersistentState = (key, initialState) => {
 };
 
 const App = () => {
-  // console.log("App renders");
-
   const stories = [
     {
       title: 'React',
